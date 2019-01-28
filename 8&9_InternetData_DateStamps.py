@@ -1,8 +1,3 @@
-import os
-
-os.environ['HTTP_PROXY'] = 'http://NZ6J8K@naproxy.gm.com:8080'
-os.environ['HTTPS_PROXY'] = 'http://NZ6J8K@naproxy.gm.com:8080'
-
 import matplotlib.pyplot as plt
 import numpy as np
 import urllib
