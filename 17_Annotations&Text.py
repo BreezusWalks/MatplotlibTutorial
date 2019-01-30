@@ -1,6 +1,5 @@
-import pickle
 import numpy as np
-import urllib
+import pickle
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import matplotlib.ticker as mticker
@@ -8,12 +7,6 @@ from matplotlib import style
 from mpl_finance import candlestick_ohlc
 
 style.use('ggplot')
-
-import os
-
-os.environ['HTTP_PROXY'] = 'http://NZ6J8K@naproxy.gm.com:8080'
-os.environ['HTTPS_PROXY'] = 'http://NZ6J8K@naproxy.gm.com:8080'
-
 
 def loadSampleStockData():
     with open('stock_data.pickle', 'rb') as pickle_in:
@@ -26,7 +19,7 @@ def bytespdate2num(fmt, encoding='utf-8'):
         return strconverter(s)
     return bytesconverter
 
-def graph_data():
+def graph_data(stock_data):
     fig = plt.figure()
     ax1 = plt.subplot2grid((1, 1), (0, 0))
     date, closep, highp, lowp, openp, adj_closep, volume = np.loadtxt(stock_data,
@@ -51,18 +44,19 @@ def graph_data():
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
     ax1.xaxis.set_major_locator(mticker.MaxNLocator(10))
     ax1.grid(True)
-
-    font_dict = {'family': 'serif',
-                 'color': 'darkred',
-                 'size': 15}
-    ax1.text(date[10], closep[1], 'Text Example', fontdict=font_dict)
+    ax1.annotate('Bad News!', (date[9], highp[9]),
+                 xytext=(0.8, 0.9), textcoords='axes fraction',
+                 arrowprops=dict(facecolor='grey', color='grey'))
+    # font_dict = {'family': 'serif',
+    #              'color': 'darkred',
+    #              'size': 15}
+    # ax1.text(date[10], closep[1], 'Text Example', fontdict=font_dict)
 
     plt.xlabel('Date')
     plt.ylabel('Price')
     plt.title('Stock')
-    plt.legend()
+    #plt.legend()
     plt.subplots_adjust(left=0.09, bottom=0.20, right=0.94, top=0.90, wspace=0.2, hspace=0)
     plt.show()
 
-getStockSampleData()
-#graph_data()
+graph_data(loadSampleStockData())
