@@ -20,6 +20,7 @@ def graph_data():
     source_code = urllib.request.urlopen(stock_price_url).read().decode()
     stock_data = []
     split_source = source_code.split('\n')
+
     for line in split_source[1:]:
         split_line = line.split(',')
         if len(split_line) == 7:
