@@ -3,18 +3,12 @@ import numpy as np
 import urllib
 import matplotlib.dates as mdates
 
-import os
-
-os.environ['HTTP_PROXY'] = 'http://NZ6J8K@naproxy.gm.com:8080'
-os.environ['HTTPS_PROXY'] = 'http://NZ6J8K@naproxy.gm.com:8080'
-
 def bytespdate2num(fmt, encoding='utf-8'):
     strconverter = mdates.strpdate2num(fmt)
     def bytesconverter(b):
         s = b.decode(encoding)
         return strconverter(s)
     return bytesconverter
-
 
 def graph_data():
     fig = plt.figure()
