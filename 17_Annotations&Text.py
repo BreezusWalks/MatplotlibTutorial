@@ -22,10 +22,7 @@ def bytespdate2num(fmt, encoding='utf-8'):
 def graph_data(stock_data):
     fig = plt.figure()
     ax1 = plt.subplot2grid((1, 1), (0, 0))
-    date, closep, highp, lowp, openp, adj_closep, volume = np.loadtxt(stock_data,
-                                                                      delimiter=',',
-                                                                      unpack=True,
-                                                                      converters={0: bytespdate2num('%Y-%m-%d')})
+    date, closep, highp, lowp, openp, adj_closep, volume = np.loadtxt(stock_data, delimiter=',', unpack=True, converters={0: bytespdate2num('%Y-%m-%d')})
 
     x = 0
     y = len(date)
@@ -55,7 +52,7 @@ def graph_data(stock_data):
     plt.xlabel('Date')
     plt.ylabel('Price')
     plt.title('Stock')
-    #plt.legend()
+    # plt.legend()
     plt.subplots_adjust(left=0.09, bottom=0.20, right=0.94, top=0.90, wspace=0.2, hspace=0)
     plt.show()
 
