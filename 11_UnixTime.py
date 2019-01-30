@@ -1,21 +1,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import urllib
+import pickle
 import datetime as dt
 
-def graph_data():
-    stock_price_url = 'https://pythonprogramming.net/yahoo_finance_replacement'
-    source_code = urllib.request.urlopen(stock_price_url).read().decode()
+def loadSampleStockData():
+    with open('stock_data.pickle', 'rb') as pickle_in:
+        return pickle.load(pickle_in)
 
-    stock_data = []
-    split_source = source_code.split('\n')
-
-    for line in split_source[1:]:
-        split_line = line.split(',')
-        if len(split_line) == 7:
-            if 'values' not in line:
-                stock_data.append(line)
-
+def graph_data(stock_data):
     date, closep, highp, lowp, openp, adj_closep, volume = np.loadtxt(stock_data, delimiter=',', unpack=True)
 
     #UNIX TIME CONVERSION
@@ -36,6 +28,6 @@ def graph_data():
     plt.subplots_adjust(left=0.09, bottom=0.20, right=0.94, top=0.90, wspace=0.2, hspace=0)
     plt.show()
 
-#graph_data()
+# graph_data(loadSampleStockData())
 print("Function does not work since the time stamps being inputted from the hardcoded page are in Y-M-D format. "
       "Did not feel like setting up a quandl.get for the stock and finding it in unix time.")

@@ -1,7 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import urllib
+import pickle
 import matplotlib.dates as mdates
+
+def loadSampleStockData():
+    with open('stock_data.pickle', 'rb') as pickle_in:
+        return pickle.load(pickle_in)
 
 def bytespdate2num(fmt, encoding='utf-8'):
     strconverter = mdates.strpdate2num(fmt)
@@ -10,19 +14,7 @@ def bytespdate2num(fmt, encoding='utf-8'):
         return strconverter(s)
     return bytesconverter
 
-def graph_data():
-    stock_price_url = 'https://pythonprogramming.net/yahoo_finance_replacement'
-    source_code = urllib.request.urlopen(stock_price_url).read().decode()
-
-    stock_data = []
-    split_source = source_code.split('\n')
-
-    for line in split_source[1:]:
-        split_line = line.split(',')
-        if len(split_line) == 7:
-            if 'values' not in line:
-                stock_data.append(line)
-
+def graph_data(stock_data):
     # %Y = full year. 2015
     # %y = partial year 15
     # %m = number month
@@ -48,4 +40,4 @@ def graph_data():
     plt.subplots_adjust(left=0.09, bottom=0.20, right=0.94, top=0.90, wspace=0.2, hspace=0)
     plt.show()
 
-graph_data()
+graph_data(loadSampleStockData())
