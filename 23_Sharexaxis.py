@@ -7,9 +7,8 @@ import pickle
 import numpy as np
 
 style.use('fivethirtyeight')
-print(plt.style.available)
-
-print(plt.__file__)
+# print(plt.style.available)
+# print(plt.__file__)
 
 MA1 = 10
 MA2 = 30
